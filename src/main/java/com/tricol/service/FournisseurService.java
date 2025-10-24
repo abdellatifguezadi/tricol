@@ -25,6 +25,7 @@ public class FournisseurService {
         Fournisseur fournisseur_find = fournisseur1.orElseThrow(() ->
                 new IllegalArgumentException("Fournisseur not found with id: " + id));
 
+        // Only overwrite fields when the incoming value is non-null. If null, keep existing.
         if (fournisseur.getAdresse() != null) {
             fournisseur_find.setAdresse(fournisseur.getAdresse());
         }
@@ -51,13 +52,13 @@ public class FournisseurService {
 
     }
 
-    public  String  deleteFournisseur( Long id){
+    public  boolean deleteFournisseur( Long id){
         Optional<Fournisseur> fournisseurOptional = fournisseurRepository.findById(id);
         if(fournisseurOptional.isPresent()){
             fournisseurRepository.delete(fournisseurOptional.get());
-            return "delete avec succes";
+            return true;
         }else {
-            return "aucun fournisseur avec cet id";
+            return false;
         }
 
     }
