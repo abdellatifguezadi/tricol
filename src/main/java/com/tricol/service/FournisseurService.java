@@ -57,7 +57,7 @@ public class FournisseurService {
             fournisseurRepository.delete(fournisseurOptional.get());
             return "delete avec succes";
         }else {
-            return "Fournisseur makaynsh";
+            return "aucun fournisseur avec cet id";
         }
 
     }
