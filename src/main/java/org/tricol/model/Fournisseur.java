@@ -11,10 +11,10 @@ public class Fournisseur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "companyName", nullable = false)
     private String societe;
     private String adresse;
-    private String Contact;
+    private String contact;
     private String telephone;
     private String email;
     private String ville;
@@ -34,11 +34,11 @@ public class Fournisseur {
     }
 
     public String getContact() {
-        return Contact;
+        return contact;
     }
 
     public void setContact(String contact) {
-        Contact = contact;
+        this.contact = contact;
     }
 
     public String getEmail() {

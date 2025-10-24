@@ -33,8 +33,16 @@ public class FournisseurServiceImpl implements FournisseurService {
     public void update(Long id, Fournisseur supplier) {
         Fournisseur existing = supplierRepository.findById(id);
         if (existing != null) {
-            supplier.setId(id);
-            supplierRepository.update(supplier);
+            // Copy only non-null fields from the incoming object to the existing entity (partial update)
+            if (supplier.getSociete() != null) existing.setSociete(supplier.getSociete());
+            if (supplier.getAdresse() != null) existing.setAdresse(supplier.getAdresse());
+            if (supplier.getContact() != null) existing.setContact(supplier.getContact());
+            if (supplier.getTelephone() != null) existing.setTelephone(supplier.getTelephone());
+            if (supplier.getEmail() != null) existing.setEmail(supplier.getEmail());
+            if (supplier.getVille() != null) existing.setVille(supplier.getVille());
+            if (supplier.getIce() != null) existing.setIce(supplier.getIce());
+
+            supplierRepository.update(existing);
         }
     }
 

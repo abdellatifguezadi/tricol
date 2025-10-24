@@ -60,6 +60,11 @@ public class FournisseurRepositoryImpl implements FournisseurRepository {
     @Override
     public long count() {
         EntityManager em = entityManagerFactory.createEntityManager();
-        return em.createQuery("SELECT COUNT(s) FROM Fournisseur s", Long.class).getSingleResult();
+        try {
+            Long c = em.createQuery("SELECT COUNT(s) FROM Fournisseur s", Long.class).getSingleResult();
+            return c;
+        } finally {
+            em.close();
+        }
     }
 }
