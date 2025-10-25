@@ -18,12 +18,26 @@ public class FournisseurController {
 
 
     @GetMapping
-    public ResponseEntity<List<Fournisseur>> getAllFournisseurs() {
-        List<Fournisseur> fournisseurs = fournisseurService.getAllFournisseus();
+    public ResponseEntity<List<Fournisseur>> getAllFournisseurs(
+            @RequestParam(value = "sort", required = false) String sort) {
+        List<Fournisseur> fournisseurs;
+        if (sort != null && !sort.isBlank()) {
+            String normalized = sort.trim().toLowerCase();
+            if ("asc".equals(normalized)) {
+                fournisseurs = fournisseurService.getFournisseursTriesParNom(true);
+            } else if ("desc".equals(normalized)) {
+                fournisseurs = fournisseurService.getFournisseursTriesParNom(false);
+            } else {
+                fournisseurs = fournisseurService.getAllFournisseurs();
+            }
+        } else {
+            fournisseurs = fournisseurService.getAllFournisseurs();
+        }
+
         if (fournisseurs.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(fournisseurs); 
+        return ResponseEntity.ok(fournisseurs);
     }
 
    

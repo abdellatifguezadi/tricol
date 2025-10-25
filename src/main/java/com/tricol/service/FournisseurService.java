@@ -3,16 +3,28 @@ package com.tricol.service;
 import com.tricol.model.Fournisseur;
 import com.tricol.repository.FournisseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 
+@Service
 public class FournisseurService {
-    @Autowired
-    private FournisseurRepository fournisseurRepository;
+    private final FournisseurRepository fournisseurRepository;
 
-    public List<Fournisseur> getAllFournisseus() {
+    @Autowired
+    public FournisseurService(FournisseurRepository fournisseurRepository) {
+        this.fournisseurRepository = fournisseurRepository;
+    }
+
+    public List<Fournisseur> getFournisseursTriesParNom(boolean ascending) {
+        return ascending ?
+                fournisseurRepository.findAllByOrderBySocieteAsc() :
+                fournisseurRepository.findAllByOrderBySocieteDesc();
+    }
+
+    public List<Fournisseur> getAllFournisseurs() {
         return fournisseurRepository.findAll();
     }
 
@@ -25,7 +37,6 @@ public class FournisseurService {
         Fournisseur fournisseur_find = fournisseur1.orElseThrow(() ->
                 new IllegalArgumentException("Fournisseur not found with id: " + id));
 
-        // Only overwrite fields when the incoming value is non-null. If null, keep existing.
         if (fournisseur.getAdresse() != null) {
             fournisseur_find.setAdresse(fournisseur.getAdresse());
         }
