@@ -23,11 +23,11 @@ public class FournisseurServiceImpl implements FournisseurService {
     @Override
     public Fournisseur ajouterFournisseur(Fournisseur fournisseur) {
         if (fournisseurRepository.existsByIce(fournisseur.getIce())) {
-            throw new IllegalArgumentException("Un fournisseur avec cet ICE existe déjà");
+            throw new IllegalArgumentException("Un fournisseur avec cet ICE existe deja");
         }
 
         if (fournisseurRepository.existsByEmail(fournisseur.getEmail())) {
-            throw new IllegalArgumentException("Un fournisseur avec cet email existe déjà");
+            throw new IllegalArgumentException("Un fournisseur avec cet email existe deja");
         }
 
         return fournisseurRepository.save(fournisseur);
@@ -35,12 +35,12 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     public Fournisseur modifierFournisseur(Long id, Fournisseur fournisseur) {
         Fournisseur existant = fournisseurRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Fournisseur non trouvé avec l'id: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Fournisseur non trouve avec l'id: " + id));
 
         if (fournisseur.getIce() != null) {
             if (!fournisseur.getIce().equals(existant.getIce()) &&
                     fournisseurRepository.existsByIce(fournisseur.getIce())) {
-                throw new IllegalArgumentException("Un fournisseur avec cet ICE existe déjà");
+                throw new IllegalArgumentException("Un fournisseur avec cet ICE existe deja");
             }
             existant.setIce(fournisseur.getIce());
         }
@@ -48,7 +48,7 @@ public class FournisseurServiceImpl implements FournisseurService {
         if (fournisseur.getEmail() != null) {
             if (!fournisseur.getEmail().equals(existant.getEmail()) &&
                     fournisseurRepository.existsByEmail(fournisseur.getEmail())) {
-                throw new IllegalArgumentException("Un fournisseur avec cet email existe déjà");
+                throw new IllegalArgumentException("Un fournisseur avec cet email existe deja");
             }
             existant.setEmail(fournisseur.getEmail());
         }
@@ -65,7 +65,7 @@ public class FournisseurServiceImpl implements FournisseurService {
     @Override
     public void supprimerFournisseur(Long id) {
         if (!fournisseurRepository.existsById(id)) {
-            throw new IllegalArgumentException("Fournisseur non trouvé avec l'id: " + id);
+            throw new IllegalArgumentException("Fournisseur non trouve avec l'id: " + id);
         }
         fournisseurRepository.deleteById(id);
     }

@@ -2,11 +2,12 @@ package org.tricol.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.tricol.config.JpaConfig;
-import org.tricol.config.WebConfig;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 
 @Configuration
 @ComponentScan(basePackages = "org.tricol")
-@Import({JpaConfig.class, WebConfig.class})
+@EnableWebMvc
+@Import(JpaConfig.class)
 public class AppConfig {
 }
